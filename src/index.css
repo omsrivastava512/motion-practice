@@ -13,6 +13,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
