@@ -1,19 +1,18 @@
 
 import BasketBall from "./components/BasketBall"
+import NotificationFeed from "./components/NotificationFeed"
 
 export function App() {
 
   return (
     <div className={"flex justify-between w-auto"}>
-      <BasketBall
-        variants={zBounceVariants}
-      />
-      <BasketBall
-       variants={yBounceVariants}
-      />
+      <NotificationFeed/>
     </div>
   )
 }
+
+
+
 
 const zBounceVariants = {
   hover: { scale: 1.2 },
@@ -21,7 +20,17 @@ const zBounceVariants = {
 }
 
 const yBounceVariants = {
-  hover:{ scale: 1.2 },
-  tap:{ y: -50, scale: 1.2 },
+  hover: { scale: 1.2 },
+  tap: { y: -50, scale: 1.2 },
 }
 
+
+
+const BasketBallTab = () => <>
+  <BasketBall
+    variants={zBounceVariants}
+  />
+  <BasketBall
+    variants={yBounceVariants}
+  />
+</>
