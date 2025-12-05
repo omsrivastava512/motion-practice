@@ -1,12 +1,14 @@
 
 import BasketBall from "./components/BasketBall"
-import NotificationFeed from "./components/NotificationFeed"
+// import NotificationFeed from "./components/NotificationFeed"
+import { PresentHeartBeat } from "./Keyframes"
 
 export function App() {
 
   return (
-    <div className={"flex justify-between w-auto"}>
-      <NotificationFeed/>
+    <div className={""}>
+      
+      <PresentHeartBeat />
     </div>
   )
 }
