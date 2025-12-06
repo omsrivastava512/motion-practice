@@ -1,8 +1,6 @@
-import { AnimatePresence, motion, type Variants } from "motion/react";
+import {  motion, type Variants } from "motion/react";
 
 import heart from "./assets/heart.png"
-import arrowDown from "./assets/arrow-down.webp"
-import { useState } from "preact/hooks";
 
 export const WiggleBox = () => {
     return (
@@ -34,32 +32,14 @@ export const BeatingHeart = ({ isOn, onClick }: BeatingHeartProps) => {
             src={heart}
             width={300}
             variants={heartVariants}
-            animate={isOn ? "hover" : "visible"}
-            // whileTap="hover"
+            animate={isOn ? "fast" : "slow"}
+            // whileTap="fast"
             onClick={onClick}
         />
     )
 }
 
 const heartVariants: Variants = {
-    hover: { scale: [1, 1.3, 1], transition: { repeat: Infinity, duration: 0.25, repeatType: "reverse" } },
-    visible: { scale: [1, 1.2, 1], transition: { repeat: Infinity, duration: 0.5, repeatType: "reverse" } },
-}
-
-export const PresentHeartBeat = () => {
-    const [isOn, setOn] = useState(false)
-
-    return <div className={"flex flex-col justify-around w-auto h-fit relative"}>
-        {
-            isOn
-                ? <motion.div  className="edu-nsw-act-cursive-italics text-black text-4xl  ">shouldn't have!</motion.div>
-                : <motion.div  className="edu-nsw-act-cursive-italics text-black text-4xl mr-5 ">Touch!</motion.div>
-        }
-        <div className="flex justify-center-safe" >
-            <AnimatePresence>
-                <motion.img animate={{opacity: isOn?0:1,}} src={arrowDown} width={70} alt="heard" />
-            </AnimatePresence>
-        </div>
-        <BeatingHeart isOn={isOn} onClick={() => { setOn(s => !s) }} />
-    </div>
+    fast: { scale: [1, 1.3, 1], transition: { repeat: Infinity, duration: 0.2, repeatType: "reverse" } },
+    slow: { scale: [1, 1.2, 1], transition: { repeat: Infinity, duration: 0.5, repeatType: "reverse" } },
 }
