@@ -1,4 +1,4 @@
-import { BeatingHeartTab } from "./components/Tabs";
+import LoginForm from "./components/LoginForm";
 
 
 export function App() {
@@ -6,7 +6,7 @@ export function App() {
   return (
     <div className={""}>
       
-      <BeatingHeartTab />
+      <LoginForm />
     </div>
   )
 }
