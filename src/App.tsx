@@ -1,12 +1,11 @@
-import LoginForm from "./components/LoginForm";
+import GoodBye from "./components/Goodbye";
 
 
 export function App() {
 
   return (
     <div className={""}>
-      
-      <LoginForm />
+      <GoodBye/>
     </div>
   )
 }

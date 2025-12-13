@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
+    "lucide-react": "^0.561.0",
     "motion": "^12.23.25",
     "preact": "^10.27.2",
     "tailwindcss": "^4.1.17"
