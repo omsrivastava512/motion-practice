@@ -3,7 +3,8 @@ import type { TargetedEvent } from "preact"
 import { useState } from "preact/hooks"
 
 
-const LoginForm = ({ }) => {
+/**Imparatively triggering animation using usAnimation and control.start() */
+export const LoginForm = ({ }) => {
     const [formData, setFormData] = useState({ username: "", password: "" })
     const controls = useAnimation()
 
@@ -13,6 +14,7 @@ const LoginForm = ({ }) => {
     const changePassword = (e: TargetedEvent) => {
         setFormData(s => ({ ...s, password: (e.target as HTMLInputElement).value }))
     }
+
 
     const handleSubmit = () => {
         if (formData.password !== "sumi") controls.start({
@@ -45,4 +47,4 @@ const LoginForm = ({ }) => {
     )
 }
 
-export default LoginForm
+

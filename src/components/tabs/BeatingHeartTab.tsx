@@ -1,29 +1,8 @@
-import { AnimatePresence, motion } from "motion/react";
-import BasketBall from "./BasketBall"
-import arrowDown from "../assets/arrow-down.webp"
 import { useState } from "preact/hooks";
-import { BeatingHeart } from "../Keyframes";
+import { AnimatePresence, motion } from "motion/react";
+import { BeatingHeart } from "../keyframes";
 
-
-const zBounceVariants = {
-    hover: { scale: 1.2 },
-    tap: { scale: .8 }
-}
-
-const yBounceVariants = {
-    hover: { scale: 1.2 },
-    tap: { y: -50, scale: 1.2 },
-}
-
-export const BasketBallTab = () => <>
-    <BasketBall
-        variants={zBounceVariants}
-    />
-    <BasketBall
-        variants={yBounceVariants}
-    />
-</>
-
+import arrowDown from "../assets/arrow-down.webp"
 
 
 export const BeatingHeartTab = () => {
@@ -40,7 +19,6 @@ export const BeatingHeartTab = () => {
                 <motion.img animate={{ opacity: isOn ? 0 : 1, }} src={arrowDown} width={70} alt="heard" />
             </AnimatePresence>
         </div>
-        <BeatingHeart isOn={isOn} onClick={() => { setOn(s => !s) }} />
+        <BeatingHeart isOn={isOn} toggleOn={() => { setOn(s => !s) }} />
     </div>
 }
-

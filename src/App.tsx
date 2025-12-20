@@ -1,16 +1,7 @@
-import GoodBye from "./components/Goodbye";
+import { DirectionalExit } from "./components/exit";
 
-
-export function App() {
-
-  return (
-    <div className={""}>
-      <GoodBye/>
-    </div>
-  )
+function App() {
+  return <DirectionalExit/>;
 }
 
-
-
-
-
+export default App;
