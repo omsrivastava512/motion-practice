@@ -1,7 +1,7 @@
-import ShuffleList from "./components/layout/ShuffleList";
+import ShuffleGrid from "./components/layout/ShuffleGrid";
 
 function App() {
-  return <ShuffleList/>;
+  return <ShuffleGrid/>;
 }
 
 export default App;
