@@ -67,7 +67,7 @@ const Toast = ({ id, message, onClose, timerInSeconds = 20 }: ToastProps) => {
 
   return (
     <motion.div
-      layout
+      layout    
       className="flex justify-between items-center p-4 mb-3 w-3xs bg-gray-200 rounded shadow-4xl font-semibold text-black"
       variants={toastVariants}
       initial="initial"

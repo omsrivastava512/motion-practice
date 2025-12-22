@@ -1,7 +1,7 @@
-import { ToastNotification } from "./components/exit";
+import CompareImage from "./components/CompareImage";
 
 function App() {
-  return <ToastNotification/>;
+  return <CompareImage/>;
 }
 
 export default App;
