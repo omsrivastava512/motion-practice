@@ -1,7 +1,7 @@
-import CompareImage from "./components/CompareImage";
+import ShuffleList from "./components/layout/ShuffleList";
 
 function App() {
-  return <CompareImage/>;
+  return <ShuffleList/>;
 }
 
 export default App;
