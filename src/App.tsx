@@ -1,7 +1,7 @@
-import { DirectionalExit } from "./components/exit";
+import { ToastNotification } from "./components/exit";
 
 function App() {
-  return <DirectionalExit/>;
+  return <ToastNotification/>;
 }
 
 export default App;

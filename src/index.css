@@ -7,7 +7,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #255;
+  background-color: #8B5CF6 ;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -68,7 +68,7 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.button {
   border-radius: 8px;
   /* border: 1px solid transparent; */
   padding: 0.4em ;
@@ -104,4 +104,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+.all-unset{
+  all:unset
 }
