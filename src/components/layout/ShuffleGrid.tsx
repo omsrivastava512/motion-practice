@@ -1,6 +1,6 @@
 import { RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 
 let COLORS = [
     "#f00", "#0f0", "#00f", "#ff0",  // red, green, blue, yellow
@@ -12,28 +12,36 @@ let COLORS = [
 ];
 
 
+const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 const ShuffleGrid = ({ }) => {
     const [colors, setColors] = useState(COLORS)
+    const [isShuffling, setIsShuffling] = useState(false)
+    const isShufflingRef = useRef(false);
 
-    const shuffleBoxes = () => {
+    
+    const shuffleBoxes = async() => {
+        if(isShufflingRef.current) return;
+        isShufflingRef.current = true;
+        setIsShuffling(true)
+
         const newOrder = [...colors];
 
-        setTimeout(() => {
+        for (let i = newOrder.length - 1; i > 0; i = i - 2) {
+            const j = Math.floor(Math.random() * (i + 1));;
+            [newOrder[i], newOrder[j]] = [newOrder[j], newOrder[i]];
+            setColors([...newOrder])
+            await sleep(800)
+        }
 
-            for (let i = newOrder.length - 1; i > 0; --i) {
-                const j = Math.floor(Math.random() * (i + 1));;
-                [newOrder[i], newOrder[j]] = [newOrder[j], newOrder[i]];
-            }
-
-            setColors(newOrder)
-        }, 500)
-
+        isShufflingRef.current = false;
+        setIsShuffling(false)
     }
+
     return (<>
-        <div className="absolute right-10 top-10 rounded-4xl backdrop-filter backdrop-blur-lg backdrop-opacity-70 h-fit w-fit">
-            <RotateCcw className=" size-7 text-black  p-0.5 hover:scale-110 cursor-pointer" onClick={shuffleBoxes} />
-        </div>
+        <button title="Shuffle tiles" disabled={isShuffling} className="absolute right-10 top-10 rounded-4xl backdrop-filter backdrop-blur-lg backdrop-opacity-70 h-fit w-fit">
+            <RotateCcw className={`size-7 text-black p-0.5 ${isShuffling?'cursor-not-allowed':'hover:scale-110 active:scale-95 cursor-pointer'}`} onClick={shuffleBoxes} />
+        </button>
         <div className="relative grid grid-cols-6 gap-4 p-4">
             {colors.map((color) => (
                 <motion.div
