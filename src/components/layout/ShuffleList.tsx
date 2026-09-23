@@ -6,25 +6,43 @@ const MOCK_LIST = Array.from("12345")
 
 const ShuffleList = ({ }) => {
     const [list, setList] = useState(MOCK_LIST)
+    // DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+    // Added isShuffling state and animate-spin to the 1D list shuffle button
+    // matching the satisfying spinning feedback on the 2D grid tiles.
+    const [isShuffling, setIsShuffling] = useState(false)
 
     const shuffleList = () => {
+        if (isShuffling) return;
+        setIsShuffling(true);
         const newList = [...list];
 
         setTimeout(() => {
-
             for (let i = newList.length - 1; i > 0; --i) {
                 const j = Math.floor(Math.random() * (i + 1));;
                 [newList[i], newList[j]] = [newList[j], newList[i]];
             }
 
-            setList(newList)
+            setList(newList);
+            setIsShuffling(false);
         }, 500)
     }
 
     return (
         <ul className="relative p-3" title="Shuffle List">
-            <li className="absolute z-10 right-0 top-0 rounded-4xl backdrop-filter backdrop-blur-lg backdrop-opacity-70 h-fit w-fit">
-                <RotateCcw className=" size-7 text-black  p-0.5 hover:scale-110 cursor-pointer" onClick={shuffleList} />
+            {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+             * Changed shuffle button from text-black on translucent pill to high-contrast neutral-100 on neutral-800
+             * so it is clearly visible and crisp on the dark stage canvas.
+             */}
+            <li className="absolute z-10 right-0 top-0 h-fit w-fit list-none">
+                <button
+                    type="button"
+                    title="Shuffle list"
+                    disabled={isShuffling}
+                    onClick={shuffleList}
+                    className="p-1.5 rounded-md bg-neutral-800 hover:bg-neutral-700 disabled:opacity-40 text-neutral-100 border border-neutral-700/80 shadow-md transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                    <RotateCcw className={`size-4 ${isShuffling ? 'animate-spin' : ''}`} />
+                </button>
             </li>
 
             {list.map((item) => (

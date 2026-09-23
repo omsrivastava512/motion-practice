@@ -17,13 +17,20 @@ const notificationVariant = {
     },
 }
 
-const NotificationFeed = () => {
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Added optional className prop so the component can be centered cleanly in showcase stages
+// instead of remaining locked to the hardcoded 'absolute ml-120 mt-50' position from Day 2.
+type NotificationFeedProps = {
+    className?: string;
+}
+
+const NotificationFeed = ({ className }: NotificationFeedProps = {}) => {
     return (
         <motion.div
             variants={feedVariants}
             initial="hidden"
             animate="visible"
-            className="absolute ml-120 mt-50"
+            className={className || "relative flex flex-col w-64"}
         >
             <motion.div className={notifCls} variants={notificationVariant}>New Message 1!</motion.div>
             <motion.div className={notifCls} variants={notificationVariant}>New Message 2!</motion.div>

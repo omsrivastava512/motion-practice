@@ -39,8 +39,18 @@ const ShuffleGrid = ({ }) => {
     }
 
     return (<>
-        <button title="Shuffle tiles" disabled={isShuffling} className="absolute right-10 top-10 rounded-4xl backdrop-filter backdrop-blur-lg backdrop-opacity-70 h-fit w-fit">
-            <RotateCcw className={`size-7 text-black p-0.5 ${isShuffling?'cursor-not-allowed':'hover:scale-110 active:scale-95 cursor-pointer'}`} onClick={shuffleBoxes} />
+        {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+         * Changed shuffle button from text-black on translucent pill to high-contrast neutral-100 on neutral-800
+         * so it is clearly visible and crisp on the dark stage canvas.
+         */}
+        <button 
+            type="button"
+            title="Shuffle tiles" 
+            disabled={isShuffling} 
+            onClick={shuffleBoxes}
+            className="absolute right-6 top-6 p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-40 text-neutral-100 border border-neutral-700/80 shadow-md transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed"
+        >
+            <RotateCcw className={`size-5 ${isShuffling ? 'animate-spin' : ''}`} />
         </button>
         <div className="relative grid grid-cols-6 gap-4 p-4">
             {colors.map((color) => (

@@ -1,0 +1,161 @@
+// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
+// Centralized showcase registry containing all 13 animations across 9 days of practice.
+// Each item includes descriptive metadata and relevant Motion concepts.
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Streamlined registry by removing defaultBackdrop per user directive to use a single constant Studio Dark stage.
+import type { ShowcaseItem } from "../types/showcase";
+
+import { BasicsDemo, BasketBallDemo, NotificationFeedDemo, KeyframePlaygroundDemo, LoginFormDemo, SimpleExitDemo } from "../components/showcase/DemoWrappers";
+import Menu from "../components/Menu";
+import { BeatingHeartTab } from "../components/tabs/BeatingHeartTab";
+import { DirectionalExit } from "../components/exit/DirectionalExit";
+import { ToastNotification } from "../components/exit/ToastNotification";
+import CompareImage from "../components/layout/CompareImage";
+import ShuffleList from "../components/layout/ShuffleList";
+import ShuffleGrid from "../components/layout/ShuffleGrid";
+
+export const SHOWCASE_ITEMS: ShowcaseItem[] = [
+  {
+    id: "day-1-basics",
+    day: 1,
+    title: "Basic Spring & Gestures",
+    subtitle: "Spring entrance, hover scale & tap feedback",
+    category: "basics",
+    tags: ["initial", "animate", "whileHover", "whileTap", "spring"],
+    description: "Introductory practice with motion primitives: animating a headline on mount using spring physics, and building a responsive card with tilt and dynamic box-shadow.",
+    highlightProps: ["type: 'spring'", "whileHover", "whileTap"],
+    component: BasicsDemo,
+  },
+  {
+    id: "day-1-basketball",
+    day: 1,
+    title: "Basketball Transform Bounces",
+    subtitle: "Comparing Z-axis scale vs Y-axis jump bounce variants",
+    category: "basics",
+    tags: ["variants", "whileHover", "whileTap", "stiffness", "damping"],
+    description: "Explores the power of motion variants to swap animation personalities on the same interactive element. Compare a scale pop vs an energetic vertical bounce on hover and tap.",
+    highlightProps: ["variants", "stiffness: 400", "damping: 15"],
+    component: BasketBallDemo,
+  },
+  {
+    id: "day-2-menu",
+    day: 2,
+    title: "Staggered Navigation Menu",
+    subtitle: "Parent-child variant orchestration with staggerChildren",
+    category: "variants",
+    tags: ["variants", "staggerChildren", "when", "orchestration"],
+    description: "Practicing hierarchical animations where parent variants trigger and sequentially stagger child item entrances without manual delay calculations.",
+    highlightProps: ["staggerChildren: 0.2", "when: 'beforeChildren'"],
+    component: Menu,
+  },
+  {
+    id: "day-2-notification-feed",
+    day: 2,
+    title: "Cascading Notification Feed",
+    subtitle: "Staggered spring slide-in notification items",
+    category: "variants",
+    tags: ["variants", "staggerChildren", "spring", "damping"],
+    description: "A notification stream where each message springs into the viewport with progressive delay, demonstrating how motion coordinates multiple dynamic elements cleanly.",
+    highlightProps: ["staggerChildren: 0.1", "stiffness: 100", "damping: 12"],
+    component: NotificationFeedDemo,
+  },
+  {
+    id: "day-3-beating-heart",
+    day: 3,
+    title: "Beating Heart Pulse Loop",
+    subtitle: "Infinite keyframe loop with interactive speed toggle",
+    category: "keyframes",
+    tags: ["keyframes", "repeat: Infinity", "repeatType: reverse"],
+    description: "Continuous pulsating heartbeat using array keyframes for multi-stop scaling. Clicking toggles between calm resting rate and rapid cardiac excitation.",
+    highlightProps: ["scale: [1, 1.3, 1]", "repeat: Infinity", "repeatType: 'reverse'"],
+    component: BeatingHeartTab,
+  },
+  {
+    id: "day-3-keyframes-playground",
+    day: 3,
+    title: "Keyframes & Percentage Timing",
+    subtitle: "Hover wiggle shakes & percentage-timed transitions",
+    category: "keyframes",
+    tags: ["keyframes", "times", "x coordinates", "micro-interaction"],
+    description: "Practicing CSS @keyframes equivalent in Motion: multi-coordinate wiggle shake on hover, and custom fractional keyframe timestamps with the `times` array property.",
+    highlightProps: ["x: [0, -10, 10, -10, 10, 0]", "times: [0, 0.2, 1]"],
+    component: KeyframePlaygroundDemo,
+  },
+  {
+    id: "day-4-login-form",
+    day: 4,
+    title: "Imperative Shake Form",
+    subtitle: "Triggering animations imperatively via useAnimation()",
+    category: "imperative",
+    tags: ["useAnimation", "controls.start()", "form validation"],
+    description: "Practicing imperative animation triggers rather than purely declarative props. When a user submits an incorrect password, `controls.start()` shakes the input and pulses red.",
+    highlightProps: ["useAnimation()", "controls.start({ x: [...] })"],
+    component: LoginFormDemo,
+  },
+  {
+    id: "day-5-simple-exit",
+    day: 5,
+    title: "Simple Exit Animation",
+    subtitle: "Preventing instant DOM destruction with AnimatePresence",
+    category: "exits",
+    tags: ["AnimatePresence", "exit", "unmount", "lifecycle"],
+    description: "Understanding why Motion exit animations require `AnimatePresence`. When React removes an element, `AnimatePresence` intercepts the unmount to allow the exit animation to complete.",
+    highlightProps: ["<AnimatePresence>", "exit='hidden'"],
+    component: SimpleExitDemo,
+  },
+  {
+    id: "day-5-directional-exit",
+    day: 5,
+    title: "Directional Exit Throw",
+    subtitle: "Custom variant parameters & requestAnimationFrame batching",
+    category: "exits",
+    tags: ["AnimatePresence", "custom", "dynamic exit", "requestAnimationFrame"],
+    description: "Advanced exit orchestration passing dynamic exit directions ('up' or 'down') through the `custom` prop, overcoming React state batching via `requestAnimationFrame`.",
+    highlightProps: ["custom={direction}", "mode='wait'", "requestAnimationFrame()"],
+    component: DirectionalExit,
+  },
+  {
+    id: "day-6-toast-notifications",
+    day: 6,
+    title: "Dynamic Toast Stack",
+    subtitle: "Entry slide, auto-dismiss timers, exit collapse & layout reordering",
+    category: "exits",
+    tags: ["AnimatePresence", "layout", "timers", "spring"],
+    description: "A complete production-style toast notification stack combining spring slide entrance, automatic timer dismissal, smooth unmount exit, and `layout` prop re-alignment.",
+    highlightProps: ["layout", "AnimatePresence", "clearTimeout"],
+    component: ToastNotification,
+  },
+  {
+    id: "day-7-compare-image",
+    day: 7,
+    title: "Shared Layout Transition (FLIP)",
+    subtitle: "A/B comparison of layout={true} vs layout={false}",
+    category: "layout",
+    tags: ["layout", "FLIP", "fullscreen expand", "interpolation"],
+    description: "Side-by-side demonstration of Motion's magical `layout` prop. Observe how setting `layout` enables buttery smooth geometry interpolation when expanding into fullscreen.",
+    highlightProps: ["layout={isLayout}", "fixed top-0 left-0"],
+    component: CompareImage,
+  },
+  {
+    id: "day-8-shuffle-list",
+    day: 8,
+    title: "1D List Layout Reordering",
+    subtitle: "Automatic spring repositioning on array shuffle",
+    category: "layout",
+    tags: ["layout", "reorder", "spring", "Fisher-Yates"],
+    description: "When list items change order in the DOM, Motion calculates their bounding box delta and animates each item into its new position using spring physics.",
+    highlightProps: ["layout", "stiffness: 300", "damping: 30"],
+    component: ShuffleList,
+  },
+  {
+    id: "day-9-shuffle-grid",
+    day: 9,
+    title: "2D Grid Layout Reordering",
+    subtitle: "24-tile colorful grid with timed sequential swaps",
+    category: "layout",
+    tags: ["layout", "2D grid", "sequential timing", "spring damping"],
+    description: "Extending layout animations to a 2D multi-row grid of 24 vibrant tiles. Shuffles sequentially with timed updates, producing mesmerizing reordering choreography.",
+    highlightProps: ["layout", "grid-cols-6", "stiffness: 80", "damping: 20"],
+    component: ShuffleGrid,
+  },
+];
