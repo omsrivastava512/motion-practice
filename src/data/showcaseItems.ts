@@ -1,8 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Centralized showcase registry containing all 13 animations across 9 days of practice.
-// Each item includes descriptive metadata and relevant Motion concepts.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Streamlined registry by removing defaultBackdrop per user directive to use a single constant Studio Dark stage.
+// Ref: [ADR-SHOWCASE-04] Declarative showcase registry cataloging 13 animations across 9 practice days.
 import type { ShowcaseItem } from "../types/showcase";
 
 import { BasicsDemo, BasketBallDemo, NotificationFeedDemo, KeyframePlaygroundDemo, LoginFormDemo, SimpleExitDemo } from "../components/showcase/DemoWrappers";

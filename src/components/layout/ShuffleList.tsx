@@ -6,9 +6,7 @@ const MOCK_LIST = Array.from("12345")
 
 const ShuffleList = ({ }) => {
     const [list, setList] = useState(MOCK_LIST)
-    // DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-    // Added isShuffling state and animate-spin to the 1D list shuffle button
-    // matching the satisfying spinning feedback on the 2D grid tiles.
+    // Ref: [ADR-LAYOUT-02] Shared spinning feedback and spring layout transitions for 1D list reordering.
     const [isShuffling, setIsShuffling] = useState(false)
 
     const shuffleList = () => {
@@ -29,13 +27,6 @@ const ShuffleList = ({ }) => {
 
     return (
         <ul className="relative p-3" title="Shuffle List">
-            {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-             * Changed shuffle button from text-black on translucent pill to high-contrast neutral-100 on neutral-800
-             * so it is clearly visible and crisp on the dark stage canvas.
-             * DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-             * Upgraded raw gray list items to Apple-grade dark cards (bg-neutral-900, border-neutral-800, rounded-xl)
-             * preserving layout spring transition.
-             */}
             <li className="absolute z-10 right-0 top-0 h-fit w-fit list-none">
                 <button
                     type="button"

@@ -1,9 +1,7 @@
 import {  motion } from "motion/react";
 
 
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Refined Generic keyframe components with Apple-style surfaces:
-// rounded-xl neutral-800 material box and sleek neutral-100 tactile button.
+// Ref: [ADR-COMP-04] Sculpted material WiggleBox and Apple-style tactile ScaleButton.
 export const WiggleBox = () => {
     return (
         <motion.div

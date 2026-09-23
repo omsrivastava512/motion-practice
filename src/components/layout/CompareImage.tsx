@@ -1,11 +1,7 @@
 import { motion } from "motion/react"
 import { useState } from "preact/hooks"
 
-// DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
-// Fixed broken asset import path pointing to nonexistent parent folder after component was moved to layout/.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Replaced loud border-4 and unstyled header with Apple-style subtle framed cards (border-neutral-700/80, rounded-xl, bg-neutral-900/90)
-// and crisp monospace typography, preserving original layout physics and expand logic.
+// Ref: [ADR-LAYOUT-04] CompareImage FLIP layout vs immediate expansion with framed card geometry.
 import nature from "../../assets/nature.png"
 
 /**

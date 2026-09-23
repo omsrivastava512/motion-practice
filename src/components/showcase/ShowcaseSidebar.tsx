@@ -1,8 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Implemented a searchable, day-grouped navigation sidebar.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_OVERRULED_AI]:
-// Replaced loud neon active indicators and pill shapes with an Apple-inspired quiet sidebar:
-// crisp 6px-8px radius, monochromatic active states, and refined typography.
+// Ref: [ADR-SHOWCASE-02] [ADR-SHOWCASE-04] Searchable day-grouped navigation sidebar with Apple-style quiet active states.
 import { useState } from "preact/hooks";
 import type { ShowcaseItem } from "../../types/showcase";
 import { Search } from "lucide-react";

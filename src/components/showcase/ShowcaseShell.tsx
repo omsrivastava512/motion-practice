@@ -1,9 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Built the top-level ShowcaseShell managing deep-linking URL hash sync,
-// global keyboard navigation (arrows for prev/next, 'r' for replay),
-// category filtering, and stage state.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Simplified state by removing activeBackdrop per user directive for a single constant Studio Dark stage.
+// Ref: [ADR-SHOWCASE-01] ShowcaseShell coordinating URL hash routing, keyboard shortcuts, and stage remounts.
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { SHOWCASE_ITEMS } from "../../data/showcaseItems";
 import type { CategoryId } from "../../types/showcase";
@@ -126,9 +121,6 @@ export const ShowcaseShell = () => {
           onSelectItem={handleSelectItem}
         />
 
-        {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-         * Simplified ShowcaseStage props: navigation controls moved to the persistent top header.
-         */}
         <ShowcaseStage
           item={activeItem}
           replayKey={replayKey}

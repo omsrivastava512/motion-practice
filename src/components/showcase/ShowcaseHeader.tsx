@@ -1,13 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Built an aesthetic header with brand identity and category filter pills.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Removed backdrop selector per user directive: single constant Studio Dark stage.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_OVERRULED_AI]:
-// Redesigned with Apple-inspired restraint: monochromatic palette, crisp geometry,
-// and refined segmented controls.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Moved navigation trio (Prev, Next, and Replay [↻ R]) to the sticky persistent header
-// so controls remain permanently accessible even when the stage is scrolled.
+// Ref: [ADR-SHOWCASE-01] [ADR-SHOWCASE-02] Sticky header with persistent navigation trio ([<] [↻ R] [>]) and Apple-restrained controls.
 import type { CategoryId } from "../../types/showcase";
 import { RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";

@@ -5,9 +5,7 @@ const ulVariants = {
     visible: { opacity: 1, transition: { when: "beforeChildren", staggerChildren: 0.2 } }
 }
 
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Refined Menu with Apple-inspired translucent dark material styling (bg-neutral-900/90, border-neutral-800)
-// and tempered hover scale (1.2) for elegant tactile feedback.
+// Ref: [ADR-COMP-01] [ADR-COMP-04] Translucent menu with staggered variant propagation and tempered hover scale.
 const liVariants = {
     hidden: { opacity: 0, y: -40 },
     visible: { opacity: 1, y: 0 },

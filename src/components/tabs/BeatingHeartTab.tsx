@@ -2,8 +2,7 @@ import { useState } from "preact/hooks";
 import { AnimatePresence, motion } from "motion/react";
 import { BeatingHeart } from "../keyframes";
 
-// DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
-// Fixed broken asset import path pointing to nonexistent parent folder.
+// Ref: [ADR-COMP-04] Relative asset import resolution for arrow-down.webp.
 import arrowDown from "../../assets/arrow-down.webp"
 
 

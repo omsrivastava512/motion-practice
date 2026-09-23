@@ -1,14 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Built an isolated Stage Canvas that hosts each animation with
-// remounting replay capability and smooth stage transitions via AnimatePresence.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Locked stage backdrop to clean, constant Studio Dark per user directive.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_OVERRULED_AI]:
-// Replaced loud violet badges, huge corner radii, and glowing blurs with
-// restrained Apple-style exhibition stage: crisp geometry and clean typographic hierarchy.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Removed navigation and replay buttons from the stage body since the stage is scrollable;
-// navigation controls now live exclusively in the persistent sticky header.
+// Ref: [ADR-SHOWCASE-01] [ADR-SHOWCASE-02] Isolated Studio Dark exhibition stage with AnimatePresence transitions.
 import type { ShowcaseItem } from "../../types/showcase";
 import { AnimatePresence, motion } from "motion/react";
 

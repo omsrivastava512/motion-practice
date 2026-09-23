@@ -1,9 +1,6 @@
 @import "tailwindcss";
 :root {
-  /* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_OVERRULED_AI]:
-   * Switched to Apple system font stack (-apple-system, SF Pro, system-ui) for optical sizing,
-   * tight tracking, and minimalist typography per /apple-design skill.
-   */
+  /* Ref: [ADR-SHOWCASE-02] Apple system font stack (-apple-system, SF Pro, system-ui) and Studio Dark root theme. */
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -11,10 +8,6 @@
 
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.9);
-  /* DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: USER_DIRECTIVE]:
-   * Moved the practice magenta (#df56e1) from global :root to a dedicated Stage Canvas backdrop option.
-   * Root now uses a sleek neutral-950 dark theme so the showcase shell has optimal contrast.
-   */
   background-color: #0a0a0a;
 
   font-synthesis: none;
@@ -41,9 +34,7 @@
   user-select: none;
 }
 
-/* DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
- * Replaced flex-centering on body with full-viewport height for the Showcase layout.
- */
+/* Ref: [ADR-SHOWCASE-01] Full-viewport layout container for the Motion Lab showcase. */
 html, body, #app {
   margin: 0;
   padding: 0;
@@ -67,11 +58,7 @@ img{
   -webkit-user-drag: none;
 }
 
-/* DECISION [TRIGGER: TYPE_CONSTRAINT] [ORIGIN: AI_AUTONOMOUS]:
- * Used :where(:not([class*="text-"])) selector for h1 and h3 so unstyled heading tags in
- * practice components (like CompareImage) retain their large sizes, while Showcase UI
- * components can cleanly apply Tailwind text sizing utilities without specificity clashes.
- */
+/* Ref: [ADR-SHOWCASE-02] :where selector scoping for unstyled practice headings without specificity clashes. */
 :where(h1:not([class*="text-"])) {
   font-size: 3.2em;
   line-height: 1.1;

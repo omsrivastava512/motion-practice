@@ -1,8 +1,6 @@
 import { motion } from "motion/react"
 
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Refined typography and card geometry per /apple-design:
-// tight heading tracking (-0.02em) and a sleek neutral material card with crisp rounded-xl borders.
+// Ref: [ADR-COMP-04] Optical typography tracking and damped spring card feedback.
 export const HeadingAppearFromBotton = () => <motion.h1
   className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-neutral-100 m-0"
   initial={{ opacity: 0, y: 100 }}

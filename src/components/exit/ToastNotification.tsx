@@ -1,8 +1,4 @@
-// DECISION [TRIGGER: TECH_DEBT] [ORIGIN: AI_AUTONOMOUS]:
-// Standardized import from legacy 'framer-motion' to 'motion/react' matching the rest of the project and package.json.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Polished toast card & trigger with Apple-inspired minimalist translucent surfaces (bg-neutral-900/95, border-neutral-800, rounded-xl)
-// replacing crude bg-gray-200 block while preserving spring layout physics and dismissal lifecycle.
+// Ref: [ADR-COMP-03] Stacked toast notification exit lifecycles and motion/react standardization.
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { useState, useEffect } from 'preact/hooks';
 

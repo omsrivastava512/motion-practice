@@ -2,10 +2,7 @@ import { RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
 import { useRef, useState } from "preact/hooks";
 
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Replaced harsh 1990s HTML neon saturated hex colors (#f00, #0f0, #00f, etc.) with Apple's calibrated
-// Dark Mode System Palette (HIG system blue, indigo, purple, mint, coral, amber, etc.),
-// keeping the exact original shuffling mechanism, DOM layout, and Motion physics completely untouched.
+// Ref: [ADR-LAYOUT-01] [ADR-LAYOUT-03] Apple Dark Mode system palette & zero CSS-transition interference on FLIP layout.
 let COLORS = [
     "#0A84FF", "#5E5CE6", "#BF5AF2", "#FF375F", "#FF453A", "#FF9F0A",
     "#FFD60A", "#30D158", "#63E6E2", "#64D2FF", "#70D7FF", "#3880FF",
@@ -20,6 +17,7 @@ const ShuffleGrid = ({ }) => {
     const [isShuffling, setIsShuffling] = useState(false)
     const isShufflingRef = useRef(false);
 
+    // Ref: [ADR-LAYOUT-02] Async Fisher-Yates step shuffle with spring layout reordering.
     const shuffleBoxes = async() => {
         if(isShufflingRef.current) return;
         isShufflingRef.current = true;
@@ -39,10 +37,6 @@ const ShuffleGrid = ({ }) => {
     }
 
     return (<>
-        {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-         * Changed shuffle button from text-black on translucent pill to high-contrast neutral-100 on neutral-800
-         * so it is clearly visible and crisp on the dark stage canvas.
-         */}
         <button 
             type="button"
             title="Shuffle tiles" 

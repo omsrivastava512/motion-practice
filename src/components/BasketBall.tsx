@@ -10,7 +10,6 @@ type BasketBallProps = {
   }
 }
 
-// DECISION [ORIGIN: AI_AUTONOMOUS]: Added descriptive title tooltip per mockup-interactivity-titles rule.
 const BasketBall = ({ variants }: BasketBallProps) => <motion.img
   className="cursor-grab select-none"
   src={basketBall}

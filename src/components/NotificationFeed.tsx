@@ -17,12 +17,7 @@ const notificationVariant = {
     },
 }
 
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Added optional className prop so the component can be centered cleanly in showcase stages
-// instead of remaining locked to the hardcoded 'absolute ml-120 mt-50' position from Day 2.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-// Replaced unstyled bg-neutral-400 block with Apple-inspired dark translucent card (bg-neutral-900/90, border-neutral-800, rounded-xl)
-// preserving the spring physics and staggerChildren variant orchestration.
+// Ref: [ADR-COMP-01] Optional stage-centering className and staggered variant propagation.
 type NotificationFeedProps = {
     className?: string;
 }

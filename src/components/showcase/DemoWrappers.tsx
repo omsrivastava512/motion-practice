@@ -1,11 +1,4 @@
-// DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: AI_AUTONOMOUS]:
-// Provided lightweight wrapper shells for demos that need contextual labels,
-// interactive reset toggles (e.g. SimpleExit toggle, LoginForm hints, NotificationFeed positioning)
-// without mutating or disrupting the author's original practice components.
-// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_OVERRULED_AI]:
-// Replaced loud colors (indigo, violet, amber), pill buttons, and heavy rounded borders
-// with Apple-inspired restraint: crisp geometry (rounded-md/lg), quiet monochrome surfaces,
-// and understated typography.
+// Ref: [ADR-SHOWCASE-03] Lightweight non-destructive wrappers exposing interactive reset and parameter controls.
 import { useState } from "preact/hooks";
 import { HeadingAppearFromBotton, SelectorCard } from "../Basics";
 import BasketBall from "../BasketBall";
@@ -47,6 +40,10 @@ export const BasketBallDemo = () => {
     hover: { scale: 1.25 },
     tap: { y: -50, scale: 1.2 },
   };
+  const xBounceVariants = {
+    hover: { scale: 1.25 },
+    tap: { x: -50, scale: 1.2 },
+  };
 
   return (
     <div className="flex flex-col items-center gap-8 p-6">
@@ -54,6 +51,12 @@ export const BasketBallDemo = () => {
         Hover or tap each ball to compare spring physics & transform axes:
       </p>
       <div className="flex items-center justify-center gap-12">
+        <div className="flex flex-col items-center gap-2.5">
+          <BasketBall variants={xBounceVariants} />
+          <span className="text-[10px] font-mono text-neutral-400 bg-neutral-900 border border-neutral-800 px-2 py-0.5 rounded-md">
+            X-Axis Scale
+          </span>
+        </div>
         <div className="flex flex-col items-center gap-2.5">
           <BasketBall variants={zBounceVariants} />
           <span className="text-[10px] font-mono text-neutral-400 bg-neutral-900 border border-neutral-800 px-2 py-0.5 rounded-md">

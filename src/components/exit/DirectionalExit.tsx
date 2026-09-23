@@ -34,9 +34,7 @@ export const DirectionalExit = () => {
                 {square.visible && <ThrowSquare animationComplete={()=>setLocked(false)} direction={square.dir} />}
             </AnimatePresence>
         </div>
-        {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-         * Refined DirectionalExit square to rounded-xl with subtle shadow and styled arrow buttons with Apple-style tactile states.
-         */}
+        {/* Ref: [ADR-COMP-03] Directional exit transitions with AnimatePresence and custom direction vectors. */}
         <div id="controls" className="flex items-center gap-2 mt-4">
             <button
                 type="button"

@@ -25,8 +25,7 @@ export const LoginForm = ({ }) => {
         else { alert("Success") }
     }
 
-    // DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
-    // Refined LoginForm with Apple-inspired minimalist form styling (rounded-xl container, crisp dark inputs, tactile submit button).
+    // Ref: [ADR-COMP-02] Imperative form validation shake via useAnimationControls.
     return (
         <form className="w-76 rounded-xl bg-neutral-900 border border-neutral-800 flex flex-col gap-4 p-6 shadow-2xl">
             <div className="flex flex-col items-start gap-1.5">
