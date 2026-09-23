@@ -36,30 +36,37 @@ const ShuffleGrid = ({ }) => {
         setIsShuffling(false)
     }
 
-    return (<>
-        <button 
-            type="button"
-            title="Shuffle tiles" 
-            disabled={isShuffling} 
-            onClick={shuffleBoxes}
-            className="absolute right-6 top-6 p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-40 text-neutral-100 border border-neutral-700/80 shadow-md transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed"
-        >
-            <RotateCcw className={`size-5 ${isShuffling ? 'animate-spin' : ''}`} />
-        </button>
-        <div className="relative grid grid-cols-6 gap-4 p-4">
-            {colors.map((color) => (
-                <motion.div
-                    layout
-                    key={color}
-                    transition={{ type: 'spring', stiffness: 80, damping: 20 }}
-                    // transition={{ duration: 0.8, ease: "easeInOut" }}   
-                    className="w-24 h-24 rounded-xl shadow-md cursor-pointer"
-                    style={{ backgroundColor: color }}
-                    title={`Tile: ${color}`}
-                ></motion.div>
-            ))}
+    return (
+        <div className="flex flex-col items-center w-full max-w-full">
+            <div className="flex justify-end w-full max-w-[620px] mb-2 px-1">
+                <button 
+                    type="button"
+                    title="Shuffle tiles across grid (or press 'R')" 
+                    disabled={isShuffling} 
+                    onClick={shuffleBoxes}
+                    className="p-1.5 sm:p-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 disabled:opacity-40 text-neutral-100 border border-neutral-700/80 shadow-md transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5 text-xs font-medium"
+                >
+                    <RotateCcw className={`size-3.5 sm:size-4 ${isShuffling ? 'animate-spin' : ''}`} />
+                    <span className="hidden sm:inline">Shuffle</span>
+                </button>
+            </div>
+            <div className="relative grid grid-cols-6 gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 p-1 sm:p-2 md:p-4 max-w-full">
+                {colors.map((color) => (
+                    // DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: USER_DIRECTIVE]:
+                    // Replaced fixed w-24 h-24 with responsive size-11 sm:size-16 md:size-20 lg:size-24.
+                    // Fits mobile screens (~300px total grid width) and tablets without horizontal clipping.
+                    // Invariant: NEVER add CSS transition-* classes here ([ADR-LAYOUT-01]); Motion's FLIP engine handles all layout projection.
+                    <motion.div
+                        layout
+                        key={color}
+                        transition={{ type: 'spring', stiffness: 80, damping: 20 }}
+                        className="size-11 sm:size-16 md:size-20 lg:size-24 rounded-lg sm:rounded-xl shadow-md cursor-pointer select-none"
+                        style={{ backgroundColor: color }}
+                        title={`Tile: ${color}`}
+                    ></motion.div>
+                ))}
+            </div>
         </div>
-    </>
     )
 }
 

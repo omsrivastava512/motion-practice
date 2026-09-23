@@ -1,6 +1,6 @@
 // Ref: [ADR-SHOWCASE-01] [ADR-SHOWCASE-02] Sticky header with persistent navigation trio ([<] [↻ R] [>]) and Apple-restrained controls.
 import type { CategoryId } from "../../types/showcase";
-import { RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { RotateCcw, ChevronLeft, ChevronRight, PanelLeft } from "lucide-react";
 import { motion } from "motion/react";
 
 interface ShowcaseHeaderProps {
@@ -13,6 +13,8 @@ interface ShowcaseHeaderProps {
   onNext: () => void;
   hasPrev: boolean;
   hasNext: boolean;
+  isSidebarOpen: boolean;
+  onToggleSidebar: () => void;
 }
 
 const CATEGORIES: { id: CategoryId; label: string }[] = [
@@ -35,18 +37,28 @@ export const ShowcaseHeader = ({
   onNext,
   hasPrev,
   hasNext,
+  isSidebarOpen,
+  onToggleSidebar,
 }: ShowcaseHeaderProps) => {
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl px-5 py-2.5 transition-colors">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 max-w-7xl mx-auto">
+    <header className="sticky top-0 z-30 w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl px-3 sm:px-5 py-2 sm:py-2.5 transition-colors">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 sm:gap-3 max-w-7xl mx-auto">
         
-        {/* Brand & Active Day Indicator */}
+        {/* Brand, Sidebar Toggle & Active Day Indicator */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="size-6 rounded-md bg-neutral-800 border border-neutral-700/80 flex items-center justify-center text-neutral-300 font-mono text-[11px] font-bold">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <button
+              type="button"
+              title={isSidebarOpen ? "Collapse navigation sidebar (Ctrl+\\)" : "Expand navigation sidebar (Ctrl+\\)"}
+              onClick={onToggleSidebar}
+              className="p-1.5 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-300 border border-neutral-800 transition-colors cursor-pointer active:scale-95 shrink-0"
+            >
+              <PanelLeft className="size-4" />
+            </button>
+            <div className="size-6 rounded-md bg-neutral-800 border border-neutral-700/80 flex items-center justify-center text-neutral-300 font-mono text-[11px] font-bold shrink-0">
               M
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 truncate">
               <span className="text-sm font-semibold tracking-tight text-neutral-100">
                 Motion Practice
               </span>

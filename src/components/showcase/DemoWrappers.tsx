@@ -50,11 +50,11 @@ export const BasketBallDemo = () => {
       <p className="text-xs text-neutral-400 font-mono">
         Hover or tap each ball to compare spring physics & transform axes:
       </p>
-      <div className="flex items-center justify-center gap-12">
+      <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12">
         <div className="flex flex-col items-center gap-2.5">
           <BasketBall variants={xBounceVariants} />
           <span className="text-[10px] font-mono text-neutral-400 bg-neutral-900 border border-neutral-800 px-2 py-0.5 rounded-md">
-            X-Axis Scale
+            X-Axis Slide
           </span>
         </div>
         <div className="flex flex-col items-center gap-2.5">
@@ -129,9 +129,9 @@ export const NotificationFeedDemo = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full max-w-sm p-4 gap-4">
+    <div className="flex flex-col items-center w-full max-w-sm p-2 sm:p-4 gap-4">
       {/* Sleek Apple-style Controls Bar */}
-      <div className="flex items-center justify-between w-full p-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 w-full p-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs">
         <button
           type="button"
           title="Add another notification to see staggered entrance"
