@@ -20,6 +20,9 @@ const notificationVariant = {
 // DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
 // Added optional className prop so the component can be centered cleanly in showcase stages
 // instead of remaining locked to the hardcoded 'absolute ml-120 mt-50' position from Day 2.
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Replaced unstyled bg-neutral-400 block with Apple-inspired dark translucent card (bg-neutral-900/90, border-neutral-800, rounded-xl)
+// preserving the spring physics and staggerChildren variant orchestration.
 type NotificationFeedProps = {
     className?: string;
 }
@@ -32,9 +35,9 @@ const NotificationFeed = ({ className }: NotificationFeedProps = {}) => {
             animate="visible"
             className={className || "relative flex flex-col w-64"}
         >
-            <motion.div className={notifCls} variants={notificationVariant}>New Message 1!</motion.div>
-            <motion.div className={notifCls} variants={notificationVariant}>New Message 2!</motion.div>
-            <motion.div className={notifCls} variants={notificationVariant}>New Message 3!</motion.div>
+            <motion.div className={notifCls} variants={notificationVariant} title="Staggered message 1">New Message 1!</motion.div>
+            <motion.div className={notifCls} variants={notificationVariant} title="Staggered message 2">New Message 2!</motion.div>
+            <motion.div className={notifCls} variants={notificationVariant} title="Staggered message 3">New Message 3!</motion.div>
         </motion.div>
     )
 }
@@ -42,4 +45,4 @@ const NotificationFeed = ({ className }: NotificationFeedProps = {}) => {
 export default NotificationFeed
 
 
-const notifCls = "bg-neutral-400 my-1 p-0.5"
+const notifCls = "px-3.5 py-2.5 my-1 rounded-xl bg-neutral-900/90 border border-neutral-800 text-neutral-200 text-xs font-medium tracking-tight shadow-md backdrop-blur-md flex items-center select-none"

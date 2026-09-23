@@ -34,9 +34,28 @@ export const DirectionalExit = () => {
                 {square.visible && <ThrowSquare animationComplete={()=>setLocked(false)} direction={square.dir} />}
             </AnimatePresence>
         </div>
-        <div id="controls" className="flex gap-1 mt-2">
-            <button type="button" title="animate down" disabled={locked} onClick={() => exit("down")}><ArrowBigDown /></button>
-            <button type="button" title="animate up" disabled={locked} onClick={() => exit("up")}><ArrowBigUp /></button>
+        {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+         * Refined DirectionalExit square to rounded-xl with subtle shadow and styled arrow buttons with Apple-style tactile states.
+         */}
+        <div id="controls" className="flex items-center gap-2 mt-4">
+            <button
+                type="button"
+                title="Exit throw downwards"
+                disabled={locked}
+                onClick={() => exit("down")}
+                className="p-2 rounded-md bg-neutral-900 hover:bg-neutral-800 disabled:opacity-30 text-neutral-200 border border-neutral-800 shadow-sm transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center"
+            >
+                <ArrowBigDown className="size-4" />
+            </button>
+            <button
+                type="button"
+                title="Exit throw upwards"
+                disabled={locked}
+                onClick={() => exit("up")}
+                className="p-2 rounded-md bg-neutral-900 hover:bg-neutral-800 disabled:opacity-30 text-neutral-200 border border-neutral-800 shadow-sm transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed flex items-center justify-center"
+            >
+                <ArrowBigUp className="size-4" />
+            </button>
         </div>
     </>
 }
@@ -64,7 +83,7 @@ const ThrowSquare = ({ direction, animationComplete }: { direction: "up" | "down
     return <motion.div
         // onAnimationStart={(def) => console.log("start", def)}
         onAnimationComplete={animationComplete}
-        className={"h-20 w-20 rounded bg-white"}
+        className="size-20 rounded-xl bg-neutral-100 border border-neutral-300 shadow-xl"
         variants={throwVariants} custom={direction}
         initial="hidden" animate="shown" exit="exit"
     />

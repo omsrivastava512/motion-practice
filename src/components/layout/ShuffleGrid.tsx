@@ -2,15 +2,16 @@ import { RotateCcw } from "lucide-react";
 import { motion } from "motion/react";
 import { useRef, useState } from "preact/hooks";
 
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Replaced harsh 1990s HTML neon saturated hex colors (#f00, #0f0, #00f, etc.) with Apple's calibrated
+// Dark Mode System Palette (HIG system blue, indigo, purple, mint, coral, amber, etc.),
+// keeping the exact original shuffling mechanism, DOM layout, and Motion physics completely untouched.
 let COLORS = [
-    "#f00", "#0f0", "#00f", "#ff0",  // red, green, blue, yellow
-    "#f0a", "#0ff", "#fff", "#000",  // magenta, cyan, white, black
-    "#800080", "#ff6347", "#ff4500", "#32cd32", // purple, tomato, orange, limegreen
-    "#ff1493", "#ffd700", "#adff2f", "#8a2be2", // deeppink, gold, greenyellow, blueviolet
-    "#c71585", "#d2691e", "#a52a2a", "#c0c0c0", // mediumvioletred, chocolate, brown, silver
-    "#ff8c00", "#4b0082", "#ffff00", "#800000" // darkorange, indigo, yellow, maroon
+    "#0A84FF", "#5E5CE6", "#BF5AF2", "#FF375F", "#FF453A", "#FF9F0A",
+    "#FFD60A", "#30D158", "#63E6E2", "#64D2FF", "#70D7FF", "#3880FF",
+    "#AF52DE", "#FF2D55", "#FF6B4A", "#FFB340", "#34C759", "#40C8E0",
+    "#7D52DE", "#E056FD", "#FF4F64", "#F5A623", "#28CD41", "#8E8E93"
 ];
-
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
@@ -19,7 +20,6 @@ const ShuffleGrid = ({ }) => {
     const [isShuffling, setIsShuffling] = useState(false)
     const isShufflingRef = useRef(false);
 
-    
     const shuffleBoxes = async() => {
         if(isShufflingRef.current) return;
         isShufflingRef.current = true;
@@ -59,8 +59,9 @@ const ShuffleGrid = ({ }) => {
                     key={color}
                     transition={{ type: 'spring', stiffness: 80, damping: 20 }}
                     // transition={{ duration: 0.8, ease: "easeInOut" }}   
-                    className={`w-24 h-24 rounded-lg bg-[${color}]`}
+                    className="w-24 h-24 rounded-xl shadow-md cursor-pointer"
                     style={{ backgroundColor: color }}
+                    title={`Tile: ${color}`}
                 ></motion.div>
             ))}
         </div>

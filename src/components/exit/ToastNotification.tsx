@@ -1,5 +1,8 @@
 // DECISION [TRIGGER: TECH_DEBT] [ORIGIN: AI_AUTONOMOUS]:
 // Standardized import from legacy 'framer-motion' to 'motion/react' matching the rest of the project and package.json.
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Polished toast card & trigger with Apple-inspired minimalist translucent surfaces (bg-neutral-900/95, border-neutral-800, rounded-xl)
+// replacing crude bg-gray-200 block while preserving spring layout physics and dismissal lifecycle.
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { useState, useEffect } from 'preact/hooks';
 
@@ -26,16 +29,16 @@ export const ToastNotification = () => {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center gap-3">
       <button
         onClick={addToast}
-        className="button"
-        title={'Add Notification'}
+        className="px-3.5 py-1.5 rounded-md bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 text-xs font-medium shadow-sm active:scale-95 transition-all cursor-pointer"
+        title="Add notification to stack (click to enqueue next toast)"
       >
         Add Notification
       </button>
 
-      <div className={'fixed bottom-5 right-5 flex flex-col space-y-3'}>
+      <div className="fixed bottom-6 right-6 flex flex-col space-y-2 z-50 pointer-events-auto">
         <AnimatePresence>
           {toasts.map((t) => (
             <Toast
@@ -70,14 +73,16 @@ const Toast = ({ id, message, onClose, timerInSeconds = 20 }: ToastProps) => {
   return (
     <motion.div
       layout    
-      className="flex justify-between items-center p-4 mb-3 w-3xs bg-gray-200 rounded shadow-4xl font-semibold text-black"
+      className="flex justify-between items-center px-4 py-3 w-72 rounded-xl bg-neutral-900/95 border border-neutral-800 text-neutral-100 shadow-2xl backdrop-blur-md text-xs font-medium cursor-pointer select-none"
       variants={toastVariants}
       initial="initial"
       animate="animate"
       exit="exit"
       onClick={() => onClose(id)}
+      title="Click notification to dismiss immediately"
     >
       <span>{message}</span>
+      <span className="text-[10px] text-neutral-500 font-mono">Dismiss</span>
     </motion.div>
   );
 };

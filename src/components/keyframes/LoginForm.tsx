@@ -25,24 +25,32 @@ export const LoginForm = ({ }) => {
         else { alert("Success") }
     }
 
+    // DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+    // Refined LoginForm with Apple-inspired minimalist form styling (rounded-xl container, crisp dark inputs, tactile submit button).
     return (
-        <form className="w-80 h-100 outline-1 bg-slate-800 flex flex-col justify-center gap-10 p-10">
-            <div className="flex flex-col items-start gap-1">
-                <label htmlFor="username" className="text-neutral-400 font-semibold">Username:</label>
+        <form className="w-76 rounded-xl bg-neutral-900 border border-neutral-800 flex flex-col gap-4 p-6 shadow-2xl">
+            <div className="flex flex-col items-start gap-1.5">
+                <label htmlFor="username" className="text-xs font-medium text-neutral-400">Username</label>
                 <input value={formData.username} onChange={changeUsername}
                     type="text" id="username" placeholder="Enter username"
-                    className="outline-1 w-full"
+                    className="w-full px-3 py-2 text-xs rounded-md bg-neutral-950 border border-neutral-800 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 transition-colors"
                 />
             </div>
-            <div className="flex flex-col items-start gap-1">
-                <label htmlFor="password" className="text-neutral-400 font-semibold">Password:</label>
+            <div className="flex flex-col items-start gap-1.5">
+                <label htmlFor="password" className="text-xs font-medium text-neutral-400">Password</label>
                 <motion.input animate={controls} value={formData.password} onChange={changePassword}
                     type="password" id="password" placeholder="Enter password"
-                    className="outline-1 w-full"
+                    className="w-full px-3 py-2 text-xs rounded-md bg-neutral-950 border border-neutral-800 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-600 transition-colors"
                 />
             </div>
 
-            <button type={"button"} onClick={handleSubmit}>Check</button>
+            <button
+                type="button"
+                onClick={handleSubmit}
+                className="w-full mt-2 py-2 rounded-md bg-neutral-100 hover:bg-white text-neutral-900 text-xs font-semibold shadow-sm transition-all active:scale-[0.98] cursor-pointer"
+            >
+                Submit
+            </button>
         </form>
     )
 }

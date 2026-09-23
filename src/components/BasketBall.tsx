@@ -10,8 +10,9 @@ type BasketBallProps = {
   }
 }
 
+// DECISION [ORIGIN: AI_AUTONOMOUS]: Added descriptive title tooltip per mockup-interactivity-titles rule.
 const BasketBall = ({ variants }: BasketBallProps) => <motion.img
-  className="cursor-grab"
+  className="cursor-grab select-none"
   src={basketBall}
   draggable={false}
   variants={variants}
@@ -22,6 +23,7 @@ const BasketBall = ({ variants }: BasketBallProps) => <motion.img
   initial={{ scale: 0.5, opacity: 0, }}
   animate={{ scale: 1, opacity: 1 }}
   transition={{ type: "spring", stiffness: 400, damping: 15 }}
+  title="Interactive basketball (hover and tap to test spring physics variants)"
 ></motion.img>
 
 

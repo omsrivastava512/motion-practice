@@ -3,6 +3,9 @@ import { useState } from "preact/hooks"
 
 // DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
 // Fixed broken asset import path pointing to nonexistent parent folder after component was moved to layout/.
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Replaced loud border-4 and unstyled header with Apple-style subtle framed cards (border-neutral-700/80, rounded-xl, bg-neutral-900/90)
+// and crisp monospace typography, preserving original layout physics and expand logic.
 import nature from "../../assets/nature.png"
 
 /**
@@ -21,21 +24,22 @@ const CompareImage = () => {
         setExpandedImage(e => e === i ? null : i)
     }
 
-    return (<div className="relative max-w-screen max-h-screen size-screen">
-        <div className="flex justify-center gap-1.5 p-2">
-            <ControlledExpandableImage key={2}
-                isHidden={expandedImage !== null}
-                isExpanded={expandedImage == 2}
-                toggleExpand={() => toggleExpand(2)}
-            />
-            <ControlledExpandableImage key={1} isLayout
-                isHidden={expandedImage !== null}
-                isExpanded={expandedImage == 1}
-                toggleExpand={() => toggleExpand(1)}
-            />
+    return (
+        <div className="relative flex flex-col items-center gap-4 p-4">
+            <div className="flex justify-center gap-4 p-2">
+                <ControlledExpandableImage key={2}
+                    isHidden={expandedImage !== null}
+                    isExpanded={expandedImage == 2}
+                    toggleExpand={() => toggleExpand(2)}
+                />
+                <ControlledExpandableImage key={1} isLayout
+                    isHidden={expandedImage !== null}
+                    isExpanded={expandedImage == 1}
+                    toggleExpand={() => toggleExpand(1)}
+                />
+            </div>
+            <p className="text-xs font-mono text-neutral-400 tracking-tight">Click either card to expand into viewport</p>
         </div>
-        <h1>Click to Expand</h1>
-    </div>
     )
 }
 
@@ -47,13 +51,15 @@ type ControlledExpandableImageProps = {
 }
 
 const ControlledExpandableImage = ({ isExpanded, isHidden, isLayout = false, toggleExpand }: ControlledExpandableImageProps) => {
-
     return (
-        <div className={`${isHidden && !isExpanded && 'opacity-0'} border-4 w-50 rounded-lg ${isExpanded && 'border-transparent'} transition-all duration-300`}>
-            <h3 className={`${isExpanded && 'opacity-0'} transition-all duration-300`} >Layout {isLayout ? "On" : "Off"}</h3>
+        <div className={`${isHidden && !isExpanded ? 'opacity-0 pointer-events-none' : ''} border border-neutral-700/80 w-52 rounded-xl bg-neutral-900/80 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
+            <h3 className={`text-xs font-mono text-neutral-300 mb-2 font-medium tracking-tight ${isExpanded ? 'opacity-0' : ''} transition-all duration-300`}>
+                Layout {isLayout ? "On" : "Off"}
+            </h3>
             <motion.img
-                src={nature} alt="Expandable" layout={isLayout} title={isLayout ? "layout on" : "layout off"}
-                className={`${isExpanded ? 'fixed top-0 left-0  w-dvw z-10' : 'relative w-50 z-0 '} rounded`}
+                src={nature} alt="Expandable preview" layout={isLayout}
+                title={`Click to expand image (${isLayout ? 'with layout animation' : 'without layout animation'})`}
+                className={`${isExpanded ? 'fixed top-0 left-0 w-dvw h-dvh object-contain z-50 bg-black/70 p-4' : 'relative w-full rounded-lg cursor-pointer hover:opacity-95 transition-opacity'}`}
                 onClick={toggleExpand}
             />
         </div>
@@ -69,11 +75,14 @@ export const ExpandableImage = ({ isLayout = false }) => {
     }
 
     return (
-        <div className={`border-4 w-50 rounded-lg ${isExpanded && 'border-transparent'} transition-all duration-300`}>
-            <h3 className={`${isExpanded && 'opacity-0'} transition-all duration-300`} >Layout {isLayout ? "On" : "Off"}</h3>
+        <div className={`border border-neutral-700/80 w-52 rounded-xl bg-neutral-900/90 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
+            <h3 className={`text-xs font-mono text-neutral-300 mb-2 font-medium tracking-tight ${isExpanded ? 'opacity-0' : ''} transition-all duration-300`}>
+                Layout {isLayout ? "On" : "Off"}
+            </h3>
             <motion.img
-                src={nature} alt="Expandable" layout={isLayout} title={isLayout ? "layout on" : "layout off"}
-                className={`${isExpanded ? 'fixed top-0 left-0  w-dvw z-10' : 'relative w-50 z-0 '} rounded`}
+                src={nature} alt="Expandable preview" layout={isLayout}
+                title={`Click to toggle image expand (${isLayout ? 'with layout transition' : 'without layout transition'})`}
+                className={`${isExpanded ? 'fixed top-0 left-0 w-dvw z-50 bg-black/90 p-4' : 'relative w-full rounded-lg cursor-pointer hover:opacity-95 transition-opacity'}`}
                 onClick={toggleExpand}
             />
         </div>

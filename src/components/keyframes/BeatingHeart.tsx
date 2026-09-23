@@ -1,7 +1,5 @@
-import {motion, type Variants} from "motion/react"
+import { motion, type Variants } from "motion/react"
 
-// DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
-// Fixed broken asset import path pointing to nonexistent local assets folder.
 import heart from "../../assets/heart.png"
 
 type BeatingHeartProps = {

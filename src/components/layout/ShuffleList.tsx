@@ -32,6 +32,9 @@ const ShuffleList = ({ }) => {
             {/* DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
              * Changed shuffle button from text-black on translucent pill to high-contrast neutral-100 on neutral-800
              * so it is clearly visible and crisp on the dark stage canvas.
+             * DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+             * Upgraded raw gray list items to Apple-grade dark cards (bg-neutral-900, border-neutral-800, rounded-xl)
+             * preserving layout spring transition.
              */}
             <li className="absolute z-10 right-0 top-0 h-fit w-fit list-none">
                 <button
@@ -48,7 +51,8 @@ const ShuffleList = ({ }) => {
             {list.map((item) => (
                 <motion.li key={item} layout
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    className="bg-gray-200 h-fit w-50 mb-3 rounded text-black text-2xl font-semibold "
+                    className="h-12 w-52 mb-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-100 text-lg font-medium flex items-center justify-center shadow-sm select-none list-none"
+                    title={`Item ${item} (reorders with spring physics)`}
                 >
                     {item}
                 </motion.li>

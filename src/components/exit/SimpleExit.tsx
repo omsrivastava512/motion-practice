@@ -21,11 +21,15 @@ const squareVariant = {
 }
 
 
+// DECISION [TRIGGER: CODE_REVIEW] [ORIGIN: USER_DIRECTIVE]:
+// Refined KillSquare in SimpleExit with crisp rounded-xl borders, subtle shadow, and tactile click hint per /apple-design.
 export const KillSquare = ({ onClick }: { onClick?(): void }) => {
     return <motion.div
         onClick={onClick} onAnimationComplete={() => console.log("fire animation")}
-        className={"h-20 w-20 rounded bg-white"}
+        className="size-20 rounded-xl bg-neutral-100 border border-neutral-300 shadow-xl cursor-pointer active:scale-95 transition-transform flex items-center justify-center text-xs font-mono text-neutral-500 select-none"
         variants={squareVariant}
         initial="hidden" animate="shown" exit="hidden"
-    />
+    >
+        <span>Dismiss</span>
+    </motion.div>
 }
