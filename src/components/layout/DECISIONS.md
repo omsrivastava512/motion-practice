@@ -10,6 +10,7 @@ This document records the architectural decisions, motion physics invariants, an
 - [[[ADR-LAYOUT-02]] Async Fisher-Yates Reordering with Framer Motion FLIP Spring Projection](#adr-layout-02-async-fisher-yates-reordering-with-framer-motion-flip-spring-projection)
 - [[[ADR-LAYOUT-03]] Apple Dark Mode System Palette Calibration for 2D Grid Visual Tracking](#adr-layout-03-apple-dark-mode-system-palette-calibration-for-2d-grid-visual-tracking)
 - [[[ADR-LAYOUT-04]] FLIP Shared Layout vs. Immediate CSS Transforms in Viewport Expansion (`CompareImage`)](#adr-layout-04-flip-shared-layout-vs-immediate-css-transforms-in-viewport-expansion-compareimage)
+- [[[ADR-LAYOUT-05]] Fluid Aspect-Ratio-Preserving Tile Grid for Responsive Tablet/Mobile Viewports](#adr-layout-05-fluid-aspect-ratio-preserving-tile-grid-for-responsive-tabletmobile-viewports)
 
 ---
 
@@ -172,3 +173,28 @@ In `CompareImage.tsx`, the exercise illustrates the difference between an image 
 #### Decision / Solution
 - Applied Apple-style framed card surfaces (`rounded-xl`, `border border-neutral-700/80`, `bg-neutral-900/90`).
 - Demonstrated that when `layout={true}`, Motion measures the thumbnail's bounding rect and interpolates smoothly to full viewport dimensions (`fixed top-0 left-0 w-dvw h-dvh object-contain z-50 bg-black/90`), while `layout={false}` causes a jarring, immediate jump without transitional frames.
+
+---
+
+### [[ADR-LAYOUT-05]] Fluid Aspect-Ratio-Preserving Tile Grid for Responsive Tablet/Mobile Viewports
+
+- **Status**: Implemented
+- **Trigger**: `PRODUCT_SPEC` & `USER_DIRECTIVE`
+- **Origin**: `USER_DIRECTIVE`
+
+#### Context / Problem
+In `ShuffleGrid.tsx`, the 24 tiles originally used hardcoded fixed pixel dimensions: `w-24 h-24` (96px by 96px) with a `gap-4` (16px). For a 6-column layout, the minimum required canvas width was:
+$$6 \times 96\text{px} + 5 \times 16\text{px} + 32\text{px (padding)} = 688\text{px}$$
+On tablet devices in portrait orientation (typically 768px with shell padding) and mobile screens (360px - 430px), this fixed footprint caused severe horizontal clipping and forced overflow scrolling.
+
+Furthermore, per **[[ADR-LAYOUT-01]]**, we could NOT attach any CSS transition or animation properties to interpolate tile widths during viewport changes, as that would break the FLIP spring matrix calculation during async shuffling.
+
+#### Decision / Solution
+1. **Responsive Discrete Dimension Scale**: Replaced `w-24 h-24` and `gap-4` with responsive Tailwind utility classes:
+   - Mobile ($< 640\text{px}$): `size-11` (44px) with `gap-1.5` (6px) $\rightarrow$ Total grid width $\approx 302\text{px}$, fitting comfortably inside small mobile devices.
+   - Small Tablet ($640\text{px} - 768\text{px}$): `size-16` (64px) with `gap-2.5` (10px) $\rightarrow$ Total grid width $\approx 440\text{px}$.
+   - Medium Tablet ($768\text{px} - 1024\text{px}$): `size-20` (80px) with `gap-3` (12px) $\rightarrow$ Total grid width $\approx 550\text{px}$.
+   - Desktop ($\ge 1024\text{px}$): `size-24` (96px) with `gap-4` (16px) $\rightarrow$ Total grid width $\approx 640\text{px}$.
+2. **Preservation of FLIP Invariants**: Zero CSS transitions were added. Because the sizing classes are static CSS layout dimensions, Framer Motion's FLIP engine seamlessly computes the delta bounding rects on resize and during Fisher-Yates step-by-step swaps with zero matrix oscillation.
+3. **Decoupled Shuffle Action Bar**: Moved the `Shuffle` button out of the absolute overlay position (which previously overlapped the top-right tiles on narrow screens) into an explicit top flex action bar aligned with the grid boundaries.
+

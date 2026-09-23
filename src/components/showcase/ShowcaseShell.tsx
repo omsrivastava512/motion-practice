@@ -1,5 +1,6 @@
 // Ref: [ADR-SHOWCASE-01] ShowcaseShell coordinating URL hash routing, keyboard shortcuts, and stage remounts.
 import { useState, useEffect, useMemo } from "preact/hooks";
+import { AnimatePresence, motion } from "motion/react";
 import { SHOWCASE_ITEMS } from "../../data/showcaseItems";
 import type { CategoryId } from "../../types/showcase";
 import { ShowcaseHeader } from "./ShowcaseHeader";
@@ -15,6 +16,18 @@ export const ShowcaseShell = () => {
 
   const [activeCategory, setActiveCategory] = useState<CategoryId>("all");
   const [replayKey, setReplayKey] = useState<number>(0);
+  // DECISION [TRIGGER: PRODUCT_SPEC] [ORIGIN: USER_DIRECTIVE]:
+  // Sidebar defaults to open on desktop (>=1024px) but collapses into slide-over drawer on tablet/mobile (<1024px)
+  // to maximize canvas stage area on constrained touch screens.
+  // Invariant: Stage canvas must retain 100% viewport width when drawer is active or sidebar is collapsed.
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth >= 1024;
+    }
+    return true;
+  });
+
+  const toggleSidebar = () => setIsSidebarOpen((open) => !open);
 
   // Filtered items based on active category
   const filteredItems = useMemo(() => {
@@ -71,6 +84,13 @@ export const ShowcaseShell = () => {
   // Keyboard navigation shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Toggle sidebar shortcut: Ctrl+\ or Cmd+\
+      if ((e.ctrlKey || e.metaKey) && e.key === "\\") {
+        e.preventDefault();
+        toggleSidebar();
+        return;
+      }
+
       // Ignore if user is typing inside an input or textarea
       const target = e.target as HTMLElement;
       if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
@@ -98,7 +118,6 @@ export const ShowcaseShell = () => {
         activeCategory={activeCategory}
         onSelectCategory={(cat) => {
           setActiveCategory(cat);
-          // If active item not in new category, switch to first item of category
           const newFiltered = cat === "all" ? SHOWCASE_ITEMS : SHOWCASE_ITEMS.filter((i) => i.category === cat);
           if (newFiltered.length > 0 && !newFiltered.some((i) => i.id === selectedId)) {
             handleSelectItem(newFiltered[0].id);
@@ -111,16 +130,71 @@ export const ShowcaseShell = () => {
         onNext={handleNext}
         hasPrev={hasPrev}
         hasNext={hasNext}
+        isSidebarOpen={isSidebarOpen}
+        onToggleSidebar={toggleSidebar}
       />
 
-      {/* Main Workspace: Sidebar + Stage */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-        <ShowcaseSidebar
-          items={filteredItems}
-          selectedId={activeItem.id}
-          onSelectItem={handleSelectItem}
-        />
+      {/* Main Workspace: Collapsible Sidebar + Stage Canvas */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Desktop Docked Sidebar (>= 1024px) */}
+        <div className="hidden lg:flex h-full">
+          <AnimatePresence initial={false}>
+            {isSidebarOpen && (
+              <motion.div
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "auto", opacity: 1 }}
+                exit={{ width: 0, opacity: 0 }}
+                transition={{ type: "spring", bounce: 0, duration: 0.28 }}
+                className="h-full overflow-hidden shrink-0"
+              >
+                <ShowcaseSidebar
+                  items={filteredItems}
+                  selectedId={activeItem.id}
+                  onSelectItem={handleSelectItem}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
+        {/* Tablet & Mobile Slide-Over Drawer (< 1024px) */}
+        <div className="lg:hidden">
+          <AnimatePresence>
+            {isSidebarOpen && (
+              <>
+                {/* Frosted Backdrop Scrim */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm cursor-pointer"
+                  title="Click to dismiss sidebar drawer"
+                />
+
+                {/* Sliding Drawer Panel */}
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "-100%" }}
+                  transition={{ type: "spring", bounce: 0, duration: 0.32 }}
+                  className="fixed top-0 bottom-0 left-0 z-50 h-full max-w-[85vw]"
+                >
+                  <ShowcaseSidebar
+                    items={filteredItems}
+                    selectedId={activeItem.id}
+                    onSelectItem={handleSelectItem}
+                    onClose={() => setIsSidebarOpen(false)}
+                    isMobileOverlay
+                  />
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Stage Canvas */}
         <ShowcaseStage
           item={activeItem}
           replayKey={replayKey}

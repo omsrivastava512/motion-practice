@@ -21,8 +21,8 @@ const CompareImage = () => {
     }
 
     return (
-        <div className="relative flex flex-col items-center gap-4 p-4">
-            <div className="flex justify-center gap-4 p-2">
+        <div className="relative flex flex-col items-center gap-3 sm:gap-4 p-2 sm:p-4 w-full">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 p-1 sm:p-2 w-full">
                 <ControlledExpandableImage key={2}
                     isHidden={expandedImage !== null}
                     isExpanded={expandedImage == 2}
@@ -34,7 +34,7 @@ const CompareImage = () => {
                     toggleExpand={() => toggleExpand(1)}
                 />
             </div>
-            <p className="text-xs font-mono text-neutral-400 tracking-tight">Click either card to expand into viewport</p>
+            <p className="text-[11px] sm:text-xs font-mono text-neutral-400 tracking-tight text-center">Click either card to expand into viewport</p>
         </div>
     )
 }
@@ -48,7 +48,7 @@ type ControlledExpandableImageProps = {
 
 const ControlledExpandableImage = ({ isExpanded, isHidden, isLayout = false, toggleExpand }: ControlledExpandableImageProps) => {
     return (
-        <div className={`${isHidden && !isExpanded ? 'opacity-0 pointer-events-none' : ''} border border-neutral-700/80 w-52 rounded-xl bg-neutral-900/80 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
+        <div className={`${isHidden && !isExpanded ? 'opacity-0 pointer-events-none' : ''} border border-neutral-700/80 w-full max-w-[208px] sm:w-52 rounded-xl bg-neutral-900/80 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
             <h3 className={`text-xs font-mono text-neutral-300 mb-2 font-medium tracking-tight ${isExpanded ? 'opacity-0' : ''} transition-all duration-300`}>
                 Layout {isLayout ? "On" : "Off"}
             </h3>
@@ -71,7 +71,7 @@ export const ExpandableImage = ({ isLayout = false }) => {
     }
 
     return (
-        <div className={`border border-neutral-700/80 w-52 rounded-xl bg-neutral-900/90 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
+        <div className={`border border-neutral-700/80 w-full max-w-[208px] sm:w-52 rounded-xl bg-neutral-900/90 p-2.5 ${isExpanded ? 'border-transparent' : ''} shadow-lg transition-all duration-300`}>
             <h3 className={`text-xs font-mono text-neutral-300 mb-2 font-medium tracking-tight ${isExpanded ? 'opacity-0' : ''} transition-all duration-300`}>
                 Layout {isLayout ? "On" : "Off"}
             </h3>

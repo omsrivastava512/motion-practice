@@ -1,19 +1,23 @@
 // Ref: [ADR-SHOWCASE-02] [ADR-SHOWCASE-04] Searchable day-grouped navigation sidebar with Apple-style quiet active states.
 import { useState } from "preact/hooks";
 import type { ShowcaseItem } from "../../types/showcase";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { motion } from "motion/react";
 
 interface ShowcaseSidebarProps {
   items: ShowcaseItem[];
   selectedId: string;
   onSelectItem: (id: string) => void;
+  onClose?: () => void;
+  isMobileOverlay?: boolean;
 }
 
 export const ShowcaseSidebar = ({
   items,
   selectedId,
   onSelectItem,
+  onClose,
+  isMobileOverlay = false,
 }: ShowcaseSidebarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -29,7 +33,20 @@ export const ShowcaseSidebar = ({
   });
 
   return (
-    <aside className="w-full md:w-72 lg:w-80 shrink-0 flex flex-col border-r border-neutral-800/80 bg-neutral-950/70 h-full overflow-hidden">
+    <aside className={`${isMobileOverlay ? 'w-80 max-w-[85vw] shadow-2xl bg-neutral-950 border-r border-neutral-800' : 'w-72 lg:w-80 border-r border-neutral-800/80 bg-neutral-950/70'} shrink-0 flex flex-col h-full overflow-hidden`}>
+      {isMobileOverlay && (
+        <div className="flex items-center justify-between px-3 py-2.5 border-b border-neutral-800">
+          <span className="text-xs font-semibold text-neutral-200">Practice Demos</span>
+          <button
+            type="button"
+            title="Close sidebar drawer"
+            onClick={onClose}
+            className="p-1 rounded-md text-neutral-400 hover:text-white cursor-pointer"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      )}
       {/* Search Input Bar */}
       <div className="p-3 border-b border-neutral-800/60">
         <div className="relative flex items-center">
@@ -69,7 +86,10 @@ export const ShowcaseSidebar = ({
                 key={item.id}
                 type="button"
                 title={`Open Day ${item.day}: ${item.title}`}
-                onClick={() => onSelectItem(item.id)}
+                onClick={() => {
+                  onSelectItem(item.id);
+                  if (isMobileOverlay) onClose?.();
+                }}
                 className={`relative w-full text-left p-2.5 rounded-lg transition-colors cursor-pointer group flex flex-col gap-1 select-none ${
                   isSelected
                     ? "text-neutral-100"

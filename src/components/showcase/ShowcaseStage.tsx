@@ -14,11 +14,11 @@ export const ShowcaseStage = ({
   const ComponentToRender = item.component;
 
   return (
-    <main className="flex-1 flex flex-col h-full overflow-y-auto p-4 sm:p-6 lg:p-8 bg-neutral-950">
-      <div className="max-w-4xl w-full mx-auto flex flex-col gap-3 my-auto">
+    <main className="flex-1 flex flex-col h-full overflow-y-auto p-2.5 sm:p-5 lg:p-8 bg-neutral-950">
+      <div className="max-w-4xl w-full mx-auto flex flex-col gap-2.5 sm:gap-3 my-auto">
         
         {/* Stage Header Info Bar (clean, informative) */}
-        <div className="flex flex-col gap-1 bg-neutral-900/60 border border-neutral-800/80 rounded-xl px-5 py-3">
+        <div className="flex flex-col gap-1 bg-neutral-900/60 border border-neutral-800/80 rounded-xl px-3.5 sm:px-5 py-2.5 sm:py-3">
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-mono font-medium text-neutral-400">
               Day {item.day.toString().padStart(2, "0")}
@@ -28,17 +28,17 @@ export const ShowcaseStage = ({
               {item.category}
             </span>
           </div>
-          <h2 className="text-base sm:text-lg font-semibold tracking-tight text-neutral-100 m-0">
+          <h2 className="text-sm sm:text-base md:text-lg font-semibold tracking-tight text-neutral-100 m-0">
             {item.title}
           </h2>
-          <p className="text-xs text-neutral-400 m-0">
+          <p className="text-[11px] sm:text-xs text-neutral-400 m-0">
             {item.description}
           </p>
         </div>
 
         {/* The Clean Studio Canvas Stage */}
         <div
-          className="relative min-h-[460px] md:min-h-[520px] w-full rounded-xl border border-neutral-800/90 bg-[#0e0e11] text-neutral-100 flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden"
+          className="relative min-h-[360px] sm:min-h-[440px] md:min-h-[500px] w-full rounded-xl border border-neutral-800/90 bg-[#0e0e11] text-neutral-100 flex flex-col items-center justify-center p-3 sm:p-6 md:p-10 overflow-hidden"
         >
           {/* Active Demo Rendering with smooth critically damped spring / fade */}
           <AnimatePresence mode="wait">
@@ -55,12 +55,12 @@ export const ShowcaseStage = ({
           </AnimatePresence>
 
           {/* Understated Concept Tags at Bottom */}
-          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-2 pointer-events-none">
-            <div className="flex flex-wrap gap-1.5 pointer-events-auto">
+          <div className="mt-4 sm:mt-0 sm:absolute sm:bottom-3 sm:left-4 sm:right-4 flex items-center justify-between gap-2 pointer-events-none">
+            <div className="flex flex-wrap gap-1 pointer-events-auto">
               {item.highlightProps.map((prop) => (
                 <span
                   key={prop}
-                  className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-900/80 text-neutral-400 border border-neutral-800/80"
+                  className="text-[9px] sm:text-[10px] font-mono px-1.5 sm:px-2 py-0.5 rounded bg-neutral-900/80 text-neutral-400 border border-neutral-800/80"
                 >
                   {prop}
                 </span>

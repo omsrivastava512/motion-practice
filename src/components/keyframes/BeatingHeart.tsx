@@ -13,7 +13,7 @@ export const BeatingHeart = ({ isOn, toggleOn }: BeatingHeartProps) => {
             width={300}
             variants={heartVariants}
             animate={isOn ? "fast" : "slow"}
-            // whileTap="fast"
+            title="Click heart to toggle heartbeat rate"
             onClick={toggleOn}
         />
     )

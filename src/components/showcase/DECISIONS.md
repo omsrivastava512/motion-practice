@@ -10,6 +10,7 @@ This document records the architectural decisions, design guidelines, and UX par
 - [[[ADR-SHOWCASE-02]] Constant Studio Dark Exhibition Canvas & Apple Design Restraint](#adr-showcase-02-constant-studio-dark-exhibition-canvas--apple-design-restraint)
 - [[[ADR-SHOWCASE-03]] Non-Destructive Demo Wrappers with Interactive Parameter Controls](#adr-showcase-03-non-destructive-demo-wrappers-with-interactive-parameter-controls)
 - [[[ADR-SHOWCASE-04]] Declarative Showcase Registry & Day-Based Catalog Schema](#adr-showcase-04-declarative-showcase-registry--day-based-catalog-schema)
+- [[[ADR-SHOWCASE-05]] Adaptive Split-View Architecture (Docked Inline vs Slide-Over Drawer for Tablet/Mobile)](#adr-showcase-05-adaptive-split-view-architecture-docked-inline-vs-slide-over-drawer-for-tabletmobile)
 
 ---
 
@@ -93,3 +94,30 @@ Centralized all animations into a strongly typed registry in `src/data/showcaseI
 - Categorized into 6 core learning tracks: `basics`, `variants`, `keyframes`, `imperative`, `exits`, and `layout`.
 - Tagged with core Motion API concepts (`layout`, `variants`, `AnimatePresence`, `staggerChildren`, `useAnimationControls`).
 - Rendered dynamically via `ShowcaseStage` with automatic remounting keys (`replayKey`).
+
+---
+
+### [[ADR-SHOWCASE-05]] Adaptive Split-View Architecture (Docked Inline vs Slide-Over Drawer for Tablet/Mobile)
+
+- **Status**: Implemented
+- **Trigger**: `PRODUCT_SPEC` & `USER_DIRECTIVE`
+- **Origin**: `USER_DIRECTIVE`
+
+#### Context / Problem
+On desktop viewports ($ \ge 1024\text{px} $), having the navigation sidebar permanently docked beside the stage canvas provides immediate day-by-day catalog exploration. However, on tablet devices ($768\text{px} - 1024\text{px}$) and mobile screens ($< 768\text{px}$), maintaining a fixed 320px column consumes between 40% and 85% of the total screen width, severely cramping the stage canvas and clipping large animated layouts like `ShuffleGrid`.
+
+#### Decision / Solution
+Implemented a dual-mode adaptive split-view layout in `ShowcaseShell.tsx`:
+1. **Desktop Split View ($ \ge 1024\text{px} $)**:
+   - Sidebar renders inline in the layout document flow.
+   - Smooth horizontal spring collapse/expand via `AnimatePresence` with `width: 0` / `width: auto` (`bounce: 0, duration: 0.28`). Collapsing the sidebar lets the stage seamlessly expand to 100% of the desktop screen width.
+2. **Tablet & Mobile Slide-Over Drawer ($ < 1024\text{px} $)**:
+   - Sidebar collapses into an off-canvas drawer (`fixed inset-y-0 left-0 z-50 max-w-[85vw] w-80`) with Apple-style frosted scrim backdrop (`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm`).
+   - Drawer animates via critically damped spring transition (`x: "-100%"` to `x: 0`, `bounce: 0, duration: 0.32`).
+   - Selecting any demo item or tapping the scrim automatically dismisses the drawer, returning full touch focus to the active interactive stage.
+   - Features a dedicated dismiss `X` button in drawer mode for clear touch feedback.
+3. **Toggle Controls & Accessibility**:
+   - `PanelLeft` icon button in `ShowcaseHeader` with descriptive tooltip title.
+   - Global keyboard accelerator: `Ctrl+\` or `Cmd+\` to quickly toggle sidebar state.
+   - Stage canvas padding dynamically adapts (`p-2.5 sm:p-5 lg:p-8`) to prevent wasted space on tablet portrait and mobile viewports.
+
