@@ -1,6 +1,8 @@
 import {motion, type Variants} from "motion/react"
 
-import heart from "./assets/heart.png"
+// DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
+// Fixed broken asset import path pointing to nonexistent local assets folder.
+import heart from "../../assets/heart.png"
 
 type BeatingHeartProps = {
     isOn: boolean,

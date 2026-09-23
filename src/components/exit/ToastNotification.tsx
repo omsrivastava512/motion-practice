@@ -1,4 +1,6 @@
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+// DECISION [TRIGGER: TECH_DEBT] [ORIGIN: AI_AUTONOMOUS]:
+// Standardized import from legacy 'framer-motion' to 'motion/react' matching the rest of the project and package.json.
+import { AnimatePresence, motion, type Variants } from 'motion/react';
 import { useState, useEffect } from 'preact/hooks';
 
 type ToastData = {

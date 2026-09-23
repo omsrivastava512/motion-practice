@@ -1,7 +1,9 @@
 import { motion } from "motion/react"
 import { useState } from "preact/hooks"
 
-import nature from "../assets/nature.png"
+// DECISION [TRIGGER: RUNTIME_BUG] [ORIGIN: AI_AUTONOMOUS]:
+// Fixed broken asset import path pointing to nonexistent parent folder after component was moved to layout/.
+import nature from "../../assets/nature.png"
 
 /**
  * The `layout` prop is used to track layout changes of an element 
